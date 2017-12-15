@@ -1,0 +1,298 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.ttu.ee/idu0075/2017/ws/autotookoda" targetNamespace="http://www.ttu.ee/idu0075/2017/ws/autotookoda">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://www.ttu.ee/idu0075/2017/ws/autotookoda" elementFormDefault="qualified">
+      <xs:complexType name="auto">
+        <xs:sequence>
+          <xs:element name="id" type="xs:integer"/>
+          <xs:element name="mark" type="xs:string"/>
+          <xs:element minOccurs="0" maxOccurs="1" name="mudel" type="xs:string"/>
+          <xs:element name="aasta" type="tns:aasta"/>
+          <xs:element name="type" type="tns:keretuup"/>
+          <xs:element name="autoProductList" type="tns:autoProductList"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="product">
+        <xs:sequence>
+          <xs:element name="id" type="xs:integer"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="hind" type="tns:hind"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="autoProductList">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="product" type="tns:product"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="keretuup">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="sedaan|universaal|maastur"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="productName">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="pesula|remont|ulevaatus|rehvivahetus"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="aasta">
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="1950"/>
+          <xs:maxInclusive value="2020"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="hind">
+        <xs:restriction base="xs:decimal">
+          <xs:fractionDigits value="2"/>
+          <xs:minExclusive value="0"/>
+          <xs:pattern value="\d+\.\d{2}"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="addAutoInfoRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="requestId" type="xs:string"/>
+            <xs:element name="mark" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="mudel" type="xs:string"/>
+            <xs:element name="aasta" type="tns:aasta"/>
+            <xs:element name="type" type="tns:keretuup"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addAutoInfoResponse" type="tns:auto"/>
+      <xs:element name="getAutoInfoRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="id" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAutoInfoResponse" type="tns:auto"/>
+      <xs:element name="addAutoProductRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="requestId" type="xs:string"/>
+            <xs:element name="autoId" type="xs:integer"/>
+            <xs:element name="productId" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addAutoProductResponse" type="tns:product"/>
+      <xs:element name="getAutoInfoListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="type" type="tns:keretuup"/>
+            <xs:element name="mark" type="xs:string"/>
+            <xs:element minOccurs="0" maxOccurs="1" name="mudel" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAutoInfoListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="auto" type="tns:auto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addProductRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="requestId" type="xs:string"/>
+            <xs:element name="name" type="tns:productName"/>
+            <xs:element name="hind" type="tns:hind"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="addProductResponse" type="tns:product"/>
+      <xs:element name="getProductRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="id" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getProductResponse" type="tns:product"/>
+      <xs:element name="getAutoProductListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+            <xs:element name="autoId" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAutoProductListResponse" type="tns:autoProductList"/>
+      <xs:element name="getProductListRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="token" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getProductListResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="product" type="tns:product"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="addAutoInfoMessageRequest">
+    <wsdl:part name="parameter" element="tns:addAutoInfoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="addAutoInfoMessageResponse">
+    <wsdl:part name="parameter" element="tns:addAutoInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getAutoInfoMessageRequest">
+    <wsdl:part name="parameter" element="tns:getAutoInfoRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getAutoInfoMessageResponse">
+    <wsdl:part name="parameter" element="tns:getAutoInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addAutoProductMessageRequest">
+    <wsdl:part name="parameter" element="tns:addAutoProductRequest"/>
+  </wsdl:message>
+  <wsdl:message name="addAutoProductMessageResponse">
+    <wsdl:part name="parameter" element="tns:addAutoProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getAutoInfoListMessageRequest">
+    <wsdl:part name="parameter" element="tns:getAutoInfoListRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getAutoInfoListMessageResponse">
+    <wsdl:part name="parameter" element="tns:getAutoInfoListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addProductMessageRequest">
+    <wsdl:part name="parameter" element="tns:addProductRequest"/>
+  </wsdl:message>
+  <wsdl:message name="addProductMessageResponse">
+    <wsdl:part name="parameter" element="tns:addProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getProductMessageRequest">
+    <wsdl:part name="parameter" element="tns:getProductRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getProductMessageResponse">
+    <wsdl:part name="parameter" element="tns:getProductResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getAutoProductListMessageRequest">
+    <wsdl:part name="parameter" element="tns:getAutoProductListRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getAutoProductListMessageResponse">
+    <wsdl:part name="parameter" element="tns:getAutoProductListResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getProductListMessageRequest">
+    <wsdl:part name="parameter" element="tns:getProductListRequest"/>
+  </wsdl:message>
+  <wsdl:message name="getProductListMessageResponse">
+    <wsdl:part name="parameter" element="tns:getProductListResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="AutoPortType">
+    <wsdl:operation name="addAutoInfo">
+      <wsdl:input message="tns:addAutoInfoMessageRequest"/>
+      <wsdl:output message="tns:addAutoInfoMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAutoInfo">
+      <wsdl:input message="tns:getAutoInfoMessageRequest"/>
+      <wsdl:output message="tns:getAutoInfoMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addProduct">
+      <wsdl:input message="tns:addProductMessageRequest"/>
+      <wsdl:output message="tns:addProductMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getProduct">
+      <wsdl:input message="tns:getProductMessageRequest"/>
+      <wsdl:output message="tns:getProductMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getProductList">
+      <wsdl:input message="tns:getProductListMessageRequest"/>
+      <wsdl:output message="tns:getProductListMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addAutoProduct">
+      <wsdl:input message="tns:addAutoProductMessageRequest"/>
+      <wsdl:output message="tns:addAutoProductMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAutoInfoList">
+      <wsdl:input message="tns:getAutoInfoListMessageRequest"/>
+      <wsdl:output message="tns:getAutoInfoListMessageResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getAutoProductList">
+      <wsdl:input message="tns:getAutoProductListMessageRequest"/>
+      <wsdl:output message="tns:getAutoProductListMessageResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AutoBinding" type="tns:AutoPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addAutoInfo">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAutoInfo">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addProduct">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProduct">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getProductList">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addAutoProduct">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAutoInfoList">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAutoProductList">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AutoTooKoda">
+    <wsdl:port name="AutoPort" binding="tns:AutoBinding">
+      <soap:address location="http://a09538:8080/155047Projekt/AutoTooKoda"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

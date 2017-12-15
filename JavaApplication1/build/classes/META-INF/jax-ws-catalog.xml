@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://a09538:8080/155047Projekt/AutoTooKoda?wsdl" uri="wsdl/a09538_8080/155047Projekt/AutoTooKoda.wsdl"/>
+</catalog>
